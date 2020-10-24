@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 // Sign Up passed. Navigate to main activity
                 navigateToRecyclerActivity();
-                Toast.makeText(LoginActivity.this, "Sign Up Success!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 // Login passed. Navigate to main activity
                 navigateToRecyclerActivity();
-                Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Error while saving Post", Toast.LENGTH_SHORT).show();
                 }
                 Log.d(TAG, "Post Successful");
+                Toast.makeText(MainActivity.this, "Posted to timeline", Toast.LENGTH_SHORT).show();
                 /*etDescription.setText("");
                 ivPostImage.setImageResource(0);*/
                 navigateToRecyclerActivity();

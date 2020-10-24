@@ -13,4 +13,5 @@
     <string name="post_username">Post Username</string>
     <string name="post_description">Post Description</string>
     <string name="compose">Compose</string>
+    <string name="post">Post</string>
 </resources>
