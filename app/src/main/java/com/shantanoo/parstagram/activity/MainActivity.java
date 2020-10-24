@@ -1,8 +1,4 @@
-package com.shantanoo.parstagram;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
+package com.shantanoo.parstagram.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,27 +8,34 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.shantanoo.parstagram.LoginActivity;
+import com.shantanoo.parstagram.R;
+import com.shantanoo.parstagram.model.Post;
 
 import java.io.File;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
-
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    private String photoFileName = "photo.jpg";
+    private static final String TAG = "MainActivity";
+    private final String photoFileName = "photo.jpg";
     private File photoFile;
 
     private EditText etDescription;
@@ -72,9 +75,45 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
+                ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoading);
+                pb.setVisibility(ProgressBar.VISIBLE);
                 savePost(description, currentUser, photoFile);
+                pb.setVisibility(ProgressBar.INVISIBLE);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actions_menu, menu);
+        menu.findItem(R.id.mnuCompose).setVisible(false);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.mnuLogout:
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if (currentUser == null)
+                    return true;
+
+                Log.d(TAG, "onOptionsItemSelected: Logging out.");
+                ParseUser.logOut();
+
+                Log.d(TAG, "onOptionsItemSelected: Log out done. Sending to Login.");
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.mnuCompose:
+            default:
+                Log.e(TAG, "onOptionsItemSelected: Unknown menu item");
+                Toast.makeText(MainActivity.this, "Unknown menu item", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void savePost(String description, ParseUser currentUser, File photoFile) {
@@ -91,27 +130,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Error while saving Post", Toast.LENGTH_SHORT).show();
                 }
                 Log.d(TAG, "Post Successful");
-                etDescription.setText("");
-                ivPostImage.setImageResource(0);
-            }
-        });
-    }
-
-    private void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "queryPosts: Exception", e);
-                    Toast.makeText(MainActivity.this, "Failed to query posts", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                for (Post post: posts) {
-                    Log.d(TAG, "Post: " + post.getDescription() + ", username:" + post.getUser().getUsername());
-                }
+                /*etDescription.setText("");
+                ivPostImage.setImageResource(0);*/
+                navigateToRecyclerActivity();
             }
         });
     }
@@ -160,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
         // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(TAG, "failed to create directory");
         }
 
@@ -168,5 +189,11 @@ public class MainActivity extends AppCompatActivity {
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
 
         return file;
+    }
+
+    private void navigateToRecyclerActivity() {
+        Intent intent = new Intent(MainActivity.this, RecyclerActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

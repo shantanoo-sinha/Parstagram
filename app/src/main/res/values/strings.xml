@@ -7,4 +7,10 @@
     <string name="posted_image">Posted Image</string>
     <string name="take_picture">Take Picture</string>
     <string name="description">Description</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="logo">Logo</string>
+    <string name="log_out">Log Out</string>
+    <string name="post_username">Post Username</string>
+    <string name="post_description">Post Description</string>
+    <string name="compose">Compose</string>
 </resources>

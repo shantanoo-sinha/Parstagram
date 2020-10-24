@@ -1,9 +1,10 @@
-package com.shantanoo.parstagram;
+package com.shantanoo.parstagram.application;
 
 import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.shantanoo.parstagram.model.Post;
 
 /**
  * Created by Shantanoo on 10/23/2020.

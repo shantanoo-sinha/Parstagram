@@ -1,4 +1,4 @@
-package com.shantanoo.parstagram;
+package com.shantanoo.parstagram.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
@@ -13,6 +13,7 @@ public class Post extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String KEY_UPDATED_AT = "updatedAt";
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -36,5 +37,13 @@ public class Post extends ParseObject {
 
     public void setUser(ParseUser parseUser) {
         put(KEY_USER, parseUser);
+    }
+
+    public String getKeyUpdatedAt() {
+        return getString(KEY_UPDATED_AT);
+    }
+
+    public void setKeyUpdatedAt(String updatedAt) {
+        put(KEY_UPDATED_AT, updatedAt);
     }
 }
