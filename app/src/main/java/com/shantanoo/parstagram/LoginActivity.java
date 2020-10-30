@@ -14,6 +14,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import com.shantanoo.parstagram.activity.MainActivity;
 import com.shantanoo.parstagram.activity.RecyclerActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -91,13 +92,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 // Login passed. Navigate to main activity
                 navigateToRecyclerActivity();
-                Toast.makeText(LoginActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, String.format("Welcome %s!", username), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void navigateToRecyclerActivity() {
-        Intent intent = new Intent(LoginActivity.this, RecyclerActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

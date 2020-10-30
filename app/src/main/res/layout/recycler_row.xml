@@ -8,16 +8,17 @@
 
     <TextView
         android:id="@+id/tvPostUserName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/post_username"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        tools:text="@string/post_username" />
 
     <ImageView
         android:id="@+id/ivPostImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:contentDescription="@string/posted_image"
+        android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
