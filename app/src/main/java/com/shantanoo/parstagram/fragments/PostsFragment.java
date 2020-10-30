@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,10 +39,10 @@ public class PostsFragment extends Fragment {
 
     private static final String TAG = "PostsFragment";
 
-    protected List<Post> allPosts;
     private RecyclerView rvPosts;
+    protected List<Post> allPosts;
     protected PostsAdapter adapter;
-    //private SwipeRefreshLayout swipeRefreshLayout;
+    protected SwipeRefreshLayout swipeRefreshLayout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,19 +104,17 @@ public class PostsFragment extends Fragment {
         rvPosts.setHasFixedSize(true);
         rvPosts.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getApplicationContext(), R.drawable.recycler_view_divider)));
 
-        queryPosts(view);
-        /*swipeRefreshLayout = findViewById(R.id.swipeContainer);
+        swipeRefreshLayout = view.findViewById(R.id.swipeContainerRecycler);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.d(TAG, "onRefresh: Swipe Refresh");
-                queryPosts();
-            }
-        });*/
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            Log.d(TAG, "onRefresh: Swipe Refresh");
+            queryPosts(view);
+        });
+
+        queryPosts(view);
     }
 
     protected void queryPosts(View view) {
@@ -127,23 +126,21 @@ public class PostsFragment extends Fragment {
         query.include(Post.KEY_USER);
         query.setLimit(20);
         query.addDescendingOrder(Post.KEY_UPDATED_AT);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "queryPosts: Exception", e);
-                    Toast.makeText(getContext(), "Failed to query posts", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        query.findInBackground((posts, e) -> {
+            if (e != null) {
+                Log.e(TAG, "queryPosts: Exception", e);
+                Toast.makeText(getContext(), "Failed to query posts", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                adapter.clear();
-                adapter.addAll(posts);
-                adapter.notifyDataSetChanged();
-                //swipeRefreshLayout.setRefreshing(false);
+            adapter.clear();
+            adapter.addAll(posts);
+            adapter.notifyDataSetChanged();
 
-                for (Post post : posts) {
-                    Log.d(TAG, "Post: " + post.getDescription() + ", username:" + post.getUser().getUsername());
-                }
+            swipeRefreshLayout.setRefreshing(false);
+
+            for (Post post : posts) {
+                Log.d(TAG, "Post: " + post.getDescription() + ", username:" + post.getUser().getUsername());
             }
         });
 

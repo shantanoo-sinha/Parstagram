@@ -3,10 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mnuCompose"
-        android:title="@string/compose"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/mnuLogout"
         android:title="@string/log_out"
         app:showAsAction="ifRoom" />

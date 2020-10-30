@@ -19,8 +19,6 @@ import java.util.List;
  */
 public class PostsAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-    private static final String TAG = "PostsAdapter";
-
     private Context context;
     private List<Post> posts;
 
