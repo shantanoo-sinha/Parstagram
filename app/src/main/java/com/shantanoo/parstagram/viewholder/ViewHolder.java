@@ -21,8 +21,13 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class ViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
+
     private TextView tvPostUserName;
+    private TextView tvTimestamp;
     private ImageView ivPostImage;
+    private ImageView ivLike;
+    private TextView tvLikeNum;
+    private ImageView ivComment;
     private TextView tvPostDescription;
 
     public ViewHolder(@NonNull View itemView, Context context) {
@@ -31,20 +36,24 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
 
         tvPostUserName = itemView.findViewById(R.id.tvPostUserName);
+        tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
         ivPostImage = itemView.findViewById(R.id.ivPostImage);
+        ivLike = itemView.findViewById(R.id.ivLike);
+        tvLikeNum = itemView.findViewById(R.id.tvLikeNum);
+        ivComment = itemView.findViewById(R.id.ivComment);
         tvPostDescription = itemView.findViewById(R.id.tvPostDescription);
     }
 
     public void bind(Post post) {
-        int radius = 30; // corner radius, higher value = more rounded
-        int margin = 10; // crop margin, set to 0 for corners with no crop
+        int radius = 50; // corner radius, higher value = more rounded
+        int margin = 30; // crop margin, set to 0 for corners with no crop
 
         tvPostUserName.setText(post.getUser().getUsername());
         tvPostDescription.setText(post.getDescription());
+        tvTimestamp.setText(post.getRelativeTime());
 
         ParseFile image = post.getImage();
         if (image != null) {
-            ivPostImage.setMaxHeight(300);
             Glide.with(context)
                     .load(image.getUrl())
                     .placeholder(R.drawable.image_loading)

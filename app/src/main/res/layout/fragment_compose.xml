@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +9,9 @@
     <ImageView
         android:id="@+id/ivPostImage"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="225dp"
         android:contentDescription="@string/posted_image"
+        android:src="@drawable/camera_shadow_fill"
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
@@ -20,8 +20,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/description"
+        android:maxLines="3"
         android:importantForAutofill="no"
-        android:inputType="textPersonName" />
+        android:inputType="text|textMultiLine" />
 
     <Button
         android:id="@+id/btnCaptureImage"

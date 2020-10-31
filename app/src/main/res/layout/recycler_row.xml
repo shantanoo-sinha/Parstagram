@@ -3,28 +3,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="0dp"
+    android:orientation="vertical"
+    android:padding="0dp">
 
-    <TextView
-        android:id="@+id/tvPostUserName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        tools:text="@string/post_username" />
+        android:padding="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvPostUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            tools:text="@string/post_username" />
+
+        <TextView
+            android:id="@+id/tvTimestamp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textStyle="italic"
+            tools:text="7 hrs. ago" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/ivPostImage"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="338dp"
         android:contentDescription="@string/posted_image"
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivLike"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ufi_heart"
+            android:contentDescription="@string/likes" />
+
+        <TextView
+            android:id="@+id/tvLikeNum"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="@string/likes" />
+
+        <ImageView
+            android:id="@+id/ivComment"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ufi_comment"
+            android:contentDescription="@string/comments" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvPostDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
+        android:padding="10dp"
         tools:text="@string/post_description" />
 </LinearLayout>

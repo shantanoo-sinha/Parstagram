@@ -19,9 +19,8 @@ public class ProfileFragment extends PostsFragment {
 
     @Override
     protected void queryPosts(View view) {
-        super.queryPosts(view);
 
-        ProgressBar pb = (ProgressBar) view.findViewById(R.id.pbLoadingRecycler);
+        ProgressBar pb = view.findViewById(R.id.pbLoadingRecycler);
         pb.setVisibility(ProgressBar.VISIBLE);
 
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
